@@ -1,0 +1,14 @@
+[Unit]
+Description=Mongodb  
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0  
+Restart=always
+ExecStartPre=-/usr/bin/docker kill mongodb  
+ExecStartPre=-/usr/bin/docker rm mongodb  
+ExecStart=/usr/bin/docker run --name mongodb  -d --privileged -p 27017:27017 -v /home/core/data:/data/db machool/mongodb
+
+[Install]
+WantedBy=multi-user.target  
