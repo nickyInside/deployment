@@ -1,0 +1,14 @@
+[Unit]
+Description=Neo4j  
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0  
+Restart=always
+ExecStartPre=-/usr/bin/docker kill neo4j  
+ExecStartPre=-/usr/bin/docker rm neo4j  
+ExecStart=/usr/bin/docker run -d --name neo4j --privileged -p 7474:7474 -p 1337:1337 -v /home/core/data:/var/lib/neo4j/data machool/neo4j:security
+
+[Install]
+WantedBy=multi-user.target  
